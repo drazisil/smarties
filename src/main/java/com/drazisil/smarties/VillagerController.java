@@ -1,7 +1,5 @@
 package com.drazisil.smarties;
 
-import com.drazisil.smarties.ai.Brain;
-import com.drazisil.smarties.ai.task.SpawnGolemTask;
 import org.bukkit.entity.Villager;
 
 import java.util.ArrayList;
@@ -11,7 +9,7 @@ import static com.drazisil.smarties.Smarties.logger;
 
 public class VillagerController {
 
-    private static final ArrayList<SmartVillager> villagers = new ArrayList<>();
+    private static ArrayList<SmartVillager> villagers = new ArrayList<>();
     private static boolean tickRunning = false;
 
     public static void addVillager(Villager villager) {
@@ -23,9 +21,10 @@ public class VillagerController {
             // Make villager invulnerable for testing.
             villager.setInvulnerable(true);
 
-
+            SmartVillager smartVillager = new SmartVillager(villager);
             villagers.add(new SmartVillager(villager));
             logger.info("Added a villager to the villager manager.");
+
         } else {
             logger.warning("Villager already exists in the villager manager.");
         }
@@ -35,7 +34,7 @@ public class VillagerController {
     public static boolean hasVillager(Villager inVillager) {
         UUID villagerId = inVillager.getUniqueId();
         for (SmartVillager vr: villagers) {
-            if (vr.villager.getUniqueId().equals(villagerId)) {
+            if (vr.getVillager().getUniqueId().equals(villagerId)) {
                 return true;
             }
         }
@@ -44,7 +43,7 @@ public class VillagerController {
 
     public static SmartVillager getSmartVillager(UUID id) {
         for (SmartVillager vr: villagers) {
-            if (vr.villager.getUniqueId().equals(id)) {
+            if (vr.getVillager().getUniqueId().equals(id)) {
                 return vr;
             }
         }
@@ -54,13 +53,13 @@ public class VillagerController {
     public static void doTick() {
         if (!tickRunning) return;
 
-        logger.info("Running tick for VillagerController..");
+        logger.fine("Running tick for VillagerController..");
 
         for (SmartVillager villager: villagers) {
             villager.brain.livingTick();
         }
 
-        logger.info("Running VillagerController tick complete.");
+        logger.fine("Running VillagerController tick complete.");
 
     }
 
@@ -76,20 +75,4 @@ public class VillagerController {
         return villagers.size();
     }
 
-    public static class SmartVillager {
-
-        private Villager villager;
-        public Brain brain;
-
-        public SmartVillager(Villager villager) {
-            this.villager = villager;
-            this.brain = new Brain(this.villager);
-            this.brain.addTask(new SpawnGolemTask(this));
-        }
-
-        public Villager getVillager() {
-            return this.villager;
-        }
-
-    }
 }

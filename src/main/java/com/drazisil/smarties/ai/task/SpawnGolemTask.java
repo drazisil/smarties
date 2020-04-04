@@ -1,19 +1,21 @@
 package com.drazisil.smarties.ai.task;
 
-import com.drazisil.smarties.VillagerController;
+import com.drazisil.smarties.SmartVillager;
 import org.bukkit.Location;
 import org.bukkit.entity.IronGolem;
 
-public class SpawnGolemTask {
+public class SpawnGolemTask extends Task {
 
-    private final VillagerController.SmartVillager smartVillager;
-
-    public SpawnGolemTask(VillagerController.SmartVillager villager) {
-        this.smartVillager = villager;
+    public SpawnGolemTask(SmartVillager villager) {
+        super(villager);
     }
 
     public void doTask() {
         Location locationToSpawn = this.smartVillager.getVillager().getLocation().clone();
-        locationToSpawn.getWorld().spawn(locationToSpawn, IronGolem.class);
+        try {
+            locationToSpawn.getWorld().spawn(locationToSpawn, IronGolem.class);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
     }
 }

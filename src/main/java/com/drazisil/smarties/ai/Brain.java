@@ -1,9 +1,11 @@
 package com.drazisil.smarties.ai;
 
 import com.drazisil.smarties.ai.task.SpawnGolemTask;
+import com.drazisil.smarties.ai.task.Task;
 import org.bukkit.Location;
 import org.bukkit.entity.Villager;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import static com.drazisil.smarties.Smarties.logger;
@@ -13,7 +15,7 @@ public class Brain {
     private final Villager.Profession profession;
     private final Location location;
     private final UUID id;
-    private SpawnGolemTask task;
+    private ArrayList<Task> tasks = new ArrayList<>();
     private boolean isDead;
     public boolean tickRunning = false;
 
@@ -30,9 +32,10 @@ public class Brain {
         if (this.isDead) return;
         if (!this.tickRunning) return;
 
-        logger.info("Brain livingTick for villager: " + this.id);
-        this.task.doTask();
-
+        logger.fine("Brain livingTick for villager: " + this.id);
+        for (Task task: tasks) {
+            task.doTask();
+        }
 
     }
 
@@ -50,7 +53,7 @@ public class Brain {
     }
 
 
-    public void addTask(SpawnGolemTask task) {
-        this.task = task;
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
 }

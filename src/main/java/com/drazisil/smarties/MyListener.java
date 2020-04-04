@@ -1,7 +1,6 @@
 package com.drazisil.smarties;
 
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,10 +8,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.VillagerCareerChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.inventory.EquipmentSlot;
-
-import java.util.ArrayList;
 
 import static com.drazisil.smarties.Smarties.logger;
 
@@ -58,7 +54,7 @@ public class MyListener implements Listener {
                 VillagerController.addVillager(villager);
             }
 
-            VillagerController.SmartVillager smartVillager = VillagerController.getSmartVillager(villager.getUniqueId());
+            SmartVillager smartVillager = VillagerController.getSmartVillager(villager.getUniqueId());
             if (smartVillager == null) {
                 logger.warning("Unable to locate a villager with id of " + villager.getUniqueId() + " in the VillagerController!");
                 return;
