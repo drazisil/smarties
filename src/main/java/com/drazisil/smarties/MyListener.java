@@ -63,11 +63,9 @@ public class MyListener implements Listener {
 
         // Only convert if not a SmartVillager
         if (clickedEntity instanceof Villager) {
-            if (itemUsed.equals(Material.STICK)) {
-                Villager villager = ((Villager) clickedEntity);
+            Villager villager = (Villager) clickedEntity;
+            if (itemUsed.equals(Material.STICK) && !VillagerManager.hasVillager(villager)) {
                 VillagerManager.addVillager(villager);
-                player.sendMessage(String.valueOf(villager.getVillagerType()));
-                event.setCancelled(true);
             }
 
         }

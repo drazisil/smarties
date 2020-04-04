@@ -25,7 +25,7 @@ public class VillagerManager {
         return villagers.size();
     }
 
-    private static boolean hasVillager(Villager inVillager) {
+    public static boolean hasVillager(Villager inVillager) {
         UUID villagerId = inVillager.getUniqueId();
         for (VillagerRecord vr: villagers) {
             if (vr.rawVillager.getUniqueId().equals(villagerId)) {
