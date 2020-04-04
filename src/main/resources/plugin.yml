@@ -4,4 +4,3 @@ main: com.drazisil.smarties.Smarties
 api-version: 1.13
 authors: [Drazisil]
 description: Smarter villagers
-load: STARTUP
