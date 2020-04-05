@@ -1,6 +1,5 @@
 package com.drazisil.smarties.ai;
 
-import com.drazisil.smarties.ai.task.SpawnGolemTask;
 import com.drazisil.smarties.ai.task.Task;
 import org.bukkit.Location;
 import org.bukkit.entity.Villager;
@@ -32,10 +31,11 @@ public class Brain {
         if (this.isDead) return;
         if (!this.tickRunning) return;
 
-        logger.fine("Brain livingTick for villager: " + this.id);
+        logger.info("Brain livingTick for villager: " + this.id + " who is a " + this.profession);
         for (Task task: tasks) {
             task.doTask();
         }
+//        setTickRunning(false);
 
     }
 
@@ -45,7 +45,7 @@ public class Brain {
 
     public void setTickRunning(boolean shouldRun) {
         this.tickRunning = shouldRun;
-        logger.info("Tick for " + this.getId() + "set to :" + this.tickRunning);
+        logger.info("Tick for " + this.getId() + " set to: " + this.tickRunning);
     }
 
     private UUID getId() {
@@ -56,4 +56,5 @@ public class Brain {
     public void addTask(Task task) {
         this.tasks.add(task);
     }
+
 }

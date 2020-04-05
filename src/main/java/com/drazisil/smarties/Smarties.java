@@ -1,16 +1,11 @@
 package com.drazisil.smarties;
 
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.entity.Villager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 public final class Smarties extends JavaPlugin {
@@ -18,7 +13,7 @@ public final class Smarties extends JavaPlugin {
     private static Smarties instance;
     private final Smarties plugin = Smarties.getInstance();
     public static Logger logger;
-    private ArrayList<Villager> worldVillagers = new ArrayList<Villager>();
+    private ArrayList<Villager> worldVillagers = new ArrayList<>();
     private BukkitTask VillagerControllerTick;
 
     @Override

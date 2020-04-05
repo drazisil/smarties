@@ -11,7 +11,7 @@ public class SpawnGolemTask extends Task {
     }
 
     public void doTask() {
-        Location locationToSpawn = this.smartVillager.getVillager().getLocation().clone();
+        Location locationToSpawn = this.villager.getVillager().getLocation().clone();
         try {
             locationToSpawn.getWorld().spawn(locationToSpawn, IronGolem.class);
         } catch (IllegalArgumentException e) {

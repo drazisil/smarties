@@ -4,10 +4,10 @@ import com.drazisil.smarties.SmartVillager;
 
 public abstract class Task {
 
-    protected SmartVillager smartVillager;
+    protected SmartVillager villager;
 
     public Task(SmartVillager villager) {
-        smartVillager = villager;
+        this.villager = villager;
     }
 
     public abstract void doTask();
