@@ -3,7 +3,7 @@ package com.drazisil.smarties;
 import com.drazisil.smarties.ai.Brain;
 import com.drazisil.smarties.ai.task.SpawnGolemTask;
 import com.drazisil.smarties.ai.task.Task;
-import com.drazisil.smarties.ai.task.WalkRandomlyTask;
+import com.drazisil.smarties.ai.task.WalkTask;
 import org.bukkit.entity.Villager;
 
 import static com.drazisil.smarties.Smarties.logger;
@@ -11,8 +11,8 @@ import static com.drazisil.smarties.Smarties.logger;
 
 public class SmartVillager {
 
-        private Villager villager;
-        private Villager.Profession profession;
+        private final Villager villager;
+        private final Villager.Profession profession;
         public Brain brain;
 
         public SmartVillager(Villager villager, Villager.Profession profession) {
@@ -24,7 +24,7 @@ public class SmartVillager {
             this.profession = profession;
             logger.warning("Current profession: " + this.profession);
             if (this.profession == Villager.Profession.FARMER) {
-                newTask = new WalkRandomlyTask(this);
+                newTask = new WalkTask(this);
             } else {
                 newTask = new SpawnGolemTask(this);
             }

@@ -2,6 +2,7 @@ package com.drazisil.smarties.ai.task;
 
 import com.drazisil.smarties.SmartVillager;
 import com.drazisil.smarties.ai.AiHelper;
+import com.drazisil.smarties.ai.memory.Memory;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Villager;
@@ -45,6 +46,7 @@ public class WalkRandomlyTask extends Task {
         Collections.shuffle(list);
         Optional<Location> optional = list.stream().filter((p_220428_1_) -> {
             try {
+                // TODO: and light level at block = 15
                 return world.getBlockAt(p_220428_1_).getLightFromSky() == 15;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -56,6 +58,7 @@ public class WalkRandomlyTask extends Task {
         //            entityIn.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(p_220430_2_, this.field_220431_a, 0));
         optional.ifPresent(location -> {
             Location newLocation = location.add(0.5d, 0, 0.5d);
+            this.villager.brain.addMemory(new Memory("WALK_TARGET", newLocation.toString()));
             entityIn.teleport(newLocation);
         });
 

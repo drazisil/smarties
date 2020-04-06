@@ -13,7 +13,7 @@ public final class Smarties extends JavaPlugin {
     private static Smarties instance;
     private final Smarties plugin = Smarties.getInstance();
     public static Logger logger;
-    private ArrayList<Villager> worldVillagers = new ArrayList<>();
+    private final ArrayList<Villager> worldVillagers = new ArrayList<>();
     private BukkitTask VillagerControllerTick;
 
     @Override
