@@ -2,7 +2,8 @@ package com.drazisil.smarties.ai.task;
 
 import com.drazisil.smarties.SmartVillager;
 import com.drazisil.smarties.ai.pathfinding.PathMapper;
-import com.drazisil.smarties.ai.pathfinding.PathNode;
+import com.drazisil.smarties.ai.pathfinding.PathBlockNode;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 
 import static com.drazisil.smarties.Smarties.logger;
@@ -17,24 +18,37 @@ public class WalkTask extends Task {
 
         Location villagerLocation = this.villager.getVillager().getLocation();
 
-        PathNode currentPathNode = new PathNode(villagerLocation);
-        currentPathNode.populateChildNodes();
+        PathBlockNode currentPathBlockNode = new PathBlockNode(villagerLocation);
+        currentPathBlockNode.populateChildNodes();
 
-        logger.warning("Current: " + currentPathNode.toString());
+        Chunk currentChunk = currentPathBlockNode.getChunk().asChunk();
+
+
+        logger.warning("Current: " + currentPathBlockNode.toString());
+        logger.warning("Current Chunk: " + currentChunk.toString());
         logger.warning("Children nodes:");
-        for (PathNode node: currentPathNode.getChildNodes()) {
+        for (PathBlockNode node: currentPathBlockNode.getChildNodes()) {
             logger.warning(node.toString());
         }
 
-        PathNode targetPathNode = new PathNode(new Location(villagerLocation.getWorld(), 100, 54, 100));
+        PathBlockNode targetPathBlockNode = new PathBlockNode(new Location(villagerLocation.getWorld(), 100, 54, 100));
 //        targetPathNode.populateChildNodes();
+        Chunk targetChunk = targetPathBlockNode.getChunk().asChunk();
 
-        logger.warning("Target: " + targetPathNode.toString());
+        logger.warning("Target: " + targetPathBlockNode.toString());
+        logger.warning("Target Chunk: " + targetChunk.toString());
 
         logger.warning(String.format("Distance between the two points: X= %d, Y= %d, Z= %d",
-                PathMapper.getDistance(currentPathNode.getX(), targetPathNode.getX()),
-                PathMapper.getDistance(currentPathNode.getY(), targetPathNode.getY()),
-                PathMapper.getDistance(currentPathNode.getZ(), targetPathNode.getZ())));
+                PathMapper.getDistance(currentPathBlockNode.getX(), targetPathBlockNode.getX()),
+                PathMapper.getDistance(currentPathBlockNode.getY(), targetPathBlockNode.getY()),
+                PathMapper.getDistance(currentPathBlockNode.getZ(), targetPathBlockNode.getZ())));
+
+        logger.warning(String.format("Distance between the two chunks: X= %d, Z= %d",
+                PathMapper.getDistance(currentPathBlockNode.getChunk().getX(),
+                        targetPathBlockNode.getChunk().getX()),
+                PathMapper.getDistance(currentPathBlockNode.getChunk().getZ(),
+                        targetPathBlockNode.getChunk().getZ())));
+
 
 //        logger.warning("Children nodes:");
 //        for (PathNode node: targetPathNode.getChildren()) {

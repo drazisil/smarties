@@ -5,28 +5,28 @@ import org.bukkit.block.Block;
 import java.util.ArrayList;
 
 /**
- * Provided methods to map paths between two {@link PathNode} objects.
+ * Provided methods to map paths between two {@link PathBlockNode} objects.
  */
 public class PathMapper {
 
-    private final PathNode sourceNode;
-    private final PathNode targetNode;
+    private final PathBlockNode sourceNode;
+    private final PathBlockNode targetNode;
 
-    public PathMapper(PathNode sourceNode, PathNode targetNode) {
+    public PathMapper(PathBlockNode sourceNode, PathBlockNode targetNode) {
         this.sourceNode = sourceNode;
         this.targetNode = targetNode;
     }
 
-    public PathNode weightChildNodes() throws Exception {
+    public PathBlockNode weightChildNodes() throws Exception {
 
-        PathNode weightedNode = this.sourceNode.clone();
+        PathBlockNode weightedNode = this.sourceNode.clone();
 
         if (targetNode == null) {
             throw new Exception("No targetNode, unable to weight");
         }
 
-        ArrayList<PathNode> children = weightedNode.getChildNodes();
-        for (PathNode node : children) {
+        ArrayList<PathBlockNode> children = weightedNode.getChildNodes();
+        for (PathBlockNode node : children) {
             if (node.getX() == targetNode.getX()) node.addWeight();
             if (node.getY() == targetNode.getY()) node.addWeight();
             if (node.getZ() == targetNode.getZ()) node.addWeight();
@@ -36,7 +36,7 @@ public class PathMapper {
         return weightedNode;
     }
 
-    public static Block getBlockAtPathNode(PathNode node) {
+    public static Block getBlockAtPathNode(PathBlockNode node) {
         return node.getWorld().getBlockAt(node.getX(), node.getY(), node.getZ());
     }
 
