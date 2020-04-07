@@ -9,9 +9,9 @@ public class MemoryManager {
     public MemoryManager() {
     }
 
-    public void clearMemories() {
-        this.memories.clear();
-    }
+//    public void clearMemories() {
+//        this.memories.clear();
+//    }
 
     public Memory getMemory(String key) {
         for (Memory memory: this.memories) {

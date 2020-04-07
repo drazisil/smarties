@@ -13,20 +13,18 @@ import static com.drazisil.smarties.Smarties.logger;
 
 public class Brain {
 
-    private Villager villager;
-    private UUID id;
+    private final UUID id;
     private final ArrayList<Task> tasks = new ArrayList<>();
     private final MemoryManager memories = new MemoryManager();
-    private boolean isDead;
+    private final boolean isDead;
     public boolean tickRunning = false;
 
     public Brain(Villager rawVillager) {
-        this.villager = rawVillager;
-        addMemory(new Memory("PROFESSION", this.villager.getProfession().toString()));
-        addMemory(new Memory("LOCATION", this.villager.getLocation().toString()));
-        addMemory(new Memory("WALK_TARGET", new Location(this.villager.getWorld(), -16, 5, -196).toString()));
-        this.isDead = this.villager.isDead();
-        this.id = this.villager.getUniqueId();
+        addMemory(new Memory("PROFESSION", rawVillager.getProfession().toString()));
+        addMemory(new Memory("LOCATION", rawVillager.getLocation().toString()));
+        addMemory(new Memory("WALK_TARGET", new Location(rawVillager.getWorld(), -16, 5, -196).toString()));
+        this.isDead = rawVillager.isDead();
+        this.id = rawVillager.getUniqueId();
 
     }
 
@@ -58,8 +56,8 @@ public class Brain {
 
     public void addMemory(Memory memory) {this.memories.add(memory);}
 
-    public Memory getMemory(String key) {
-        return this.memories.getMemory(key);
-    }
+//    public Memory getMemory(String key) {
+//        return this.memories.getMemory(key);
+//    }
 
 }

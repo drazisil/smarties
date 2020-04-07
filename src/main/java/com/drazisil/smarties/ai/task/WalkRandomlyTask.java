@@ -52,9 +52,7 @@ public class WalkRandomlyTask extends Task {
                 e.printStackTrace();
             }
             return false;
-        }).filter((p_220427_2_) -> {
-            return AiHelper.isGround(p_220427_2_);
-        }).findFirst();
+        }).filter(AiHelper::isGround).findFirst();
         //            entityIn.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(p_220430_2_, this.field_220431_a, 0));
         optional.ifPresent(location -> {
             Location newLocation = location.add(0.5d, 0, 0.5d);

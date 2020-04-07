@@ -23,7 +23,7 @@ public class PathNode {
 
     /**
      * 
-     * @param location
+     * @param location location to create node from
      */
     public PathNode(Location location) {
         this(1, location);
@@ -31,8 +31,8 @@ public class PathNode {
 
     /**
      * 
-     * @param weight
-     * @param location
+     * @param weight weight to use in path finding. Higher is better
+     * @param location location to create node from
      */
     public PathNode(int weight, Location location) {
         this.weight = weight;
@@ -44,11 +44,11 @@ public class PathNode {
 
     /**
      * 
-     * @param weight
-     * @param world
-     * @param x
-     * @param y
-     * @param z
+     * @param weight weight to use in path finding. Higher is better
+     * @param world world node is in
+     * @param x x position of node
+     * @param y y position on node
+     * @param z z position of node
      */
     public PathNode(int weight, World world, int x, int y, int z) {
         this.weight = weight;
@@ -147,21 +147,7 @@ public class PathNode {
     }
 
     /**
-     * Given an X and Y, return if Y, Y-1, or Y+1 are valld PathNodes
-     * @param world
-     * @param x
-     * @param y
-     * @param z
-     * @return {@link PathNode}
-     */
-    public Optional<PathNode> getTopNode(World world, int x, int y, int z) {
-
-        return getTopNode(new PathNode(1, world, x, y, z));
-
-    }
-
-    /**
-     * 
+     * Is this node a valid move target
      * @param node
      * @return boolean
      */
@@ -170,10 +156,26 @@ public class PathNode {
         return possibleNode.isPresent();
     }
 
+//    /**
+//     * Given an X and Y, return if Y, Y-1, or Y+1 are valld PathNodes
+//     * @param world
+//     * @param x
+//     * @param y
+//     * @param z
+//     * @return {@link PathNode}
+//     */
+//    public Optional<PathNode> getTopNode(World world, int x, int y, int z) {
+//
+//        return getTopNode(new PathNode(1, world, x, y, z));
+//
+//    }
+
+
+
     /**
-     * 
-     * @param node
-     * @return
+     * Check if the node above, this node, or the node below are valid move targets. In that order.
+     * @param node node to check
+     * @return Optional<PathNode>
      */
     public Optional<PathNode> getTopNode(PathNode node) {
 
@@ -199,7 +201,7 @@ public class PathNode {
 
     /**
      * Is this a valid two block high space to move into with a solid floor. 
-     * @param node
+     * @param node node to check
      * @return boolean
      */
     public boolean isValidMoveBlock(PathNode node) {
@@ -213,7 +215,7 @@ public class PathNode {
 
     /**
      * Get an arry of child nodes
-     * @return
+     * @return ArrayList<PathNode>
      */
     public ArrayList<PathNode> getChildNodes() {
         if (childNodes == null) {
@@ -225,7 +227,7 @@ public class PathNode {
 
     /**
      * Replace the array of child nodes
-     * @param childNodes
+     * @param childNodes set of path nodes to replace to
      */
     public void setChildNodes(ArrayList<PathNode> childNodes) {
         this.childNodes = childNodes;
@@ -240,7 +242,7 @@ public class PathNode {
 
     /**
      * Add to node weight
-     * @param weightToAdd
+     * @param weightToAdd add this weith to existing node weight
      */
     public void addWeight(int weightToAdd) {
         this.weight = this.weight + weightToAdd;
@@ -248,7 +250,7 @@ public class PathNode {
 
     /**
      * Get current node weight
-     * @return
+     * @return the node's weight
      */
     public int getWeight() {
         return weight;
@@ -266,6 +268,7 @@ public class PathNode {
      * Copy the node
      * @return {@link PathNode}
      */
+    @Override
     public PathNode clone(){
         PathNode clonedNode = new PathNode(weight, world, x, y, z);
         clonedNode.setChildNodes(getChildNodes());
@@ -300,7 +303,7 @@ public class PathNode {
     /**
      *  Returns true if all blocks above are passable
      *
-     * @param node
+     * @param node the node to check
      * @return boolean
      */
     public static boolean isGround(PathNode node) {

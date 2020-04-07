@@ -11,29 +11,27 @@ import static com.drazisil.smarties.Smarties.logger;
 
 public class SmartVillager {
 
-        private final Villager villager;
-        private final Villager.Profession profession;
-        public Brain brain;
+    private final Villager villager;
+    public final Brain brain;
 
-        public SmartVillager(Villager villager, Villager.Profession profession) {
-            this.villager = villager;
-            this.brain = new Brain(this.villager);
+    public SmartVillager(Villager villager, Villager.Profession profession) {
+        this.villager = villager;
+        this.brain = new Brain(this.villager);
 
-            // Assign AI tasks
-            Task newTask;
-            this.profession = profession;
-            logger.warning("Current profession: " + this.profession);
-            if (this.profession == Villager.Profession.FARMER) {
-                newTask = new WalkTask(this);
-            } else {
-                newTask = new SpawnGolemTask(this);
-            }
-            this.brain.addTask(newTask);
+        // Assign AI tasks
+        Task newTask;
+        logger.warning("Current profession: " + profession);
+        if (profession == Villager.Profession.FARMER) {
+            newTask = new WalkTask(this);
+        } else {
+            newTask = new SpawnGolemTask(this);
         }
+        this.brain.addTask(newTask);
+    }
 
-        public Villager getVillager() {
-            return this.villager;
-        }
+    public Villager getVillager() {
+        return this.villager;
+    }
 
     }
 

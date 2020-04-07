@@ -26,7 +26,6 @@ public class PathMapper {
         }
 
         ArrayList<PathNode> children = weightedNode.getChildNodes();
-        int childrenCount = children.size();
         for (PathNode node : children) {
             if (node.getX() == targetNode.getX()) node.addWeight();
             if (node.getY() == targetNode.getY()) node.addWeight();

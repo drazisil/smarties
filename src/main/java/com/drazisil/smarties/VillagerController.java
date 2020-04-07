@@ -70,10 +70,6 @@ public class VillagerController {
         tickRunning = shouldRun;
     }
 
-    public static int getCount() {
-        return villagers.size();
-    }
-
     public static boolean isCorrectTool(ItemStack tool) {
 
         if (tool.hasItemMeta()) {
