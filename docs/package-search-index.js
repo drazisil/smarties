@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.drazisil.com.smarties"},{"l":"com.drazisil.smarties"},{"l":"com.drazisil.smarties.ai"},{"l":"com.drazisil.smarties.ai.memory"},{"l":"com.drazisil.smarties.ai.pathfinding"},{"l":"com.drazisil.smarties.ai.task"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.drazisil.smarties"},{"l":"com.drazisil.smarties.ai"},{"l":"com.drazisil.smarties.ai.memory"},{"l":"com.drazisil.smarties.ai.pathfinding"},{"l":"com.drazisil.smarties.ai.task"}]

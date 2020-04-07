@@ -17,23 +17,36 @@ public class WalkTask extends Task {
         Location villagerLocation = this.villager.getVillager().getLocation();
 
         PathNode currentPathNode = new PathNode(villagerLocation);
-        currentPathNode.calculateChildren();
+        currentPathNode.populateChildNodes();
 
         logger.warning("Current: " + currentPathNode.toString());
         logger.warning("Children nodes:");
-        for (PathNode node: currentPathNode.getChildren()) {
+        for (PathNode node: currentPathNode.getChildNodes()) {
             logger.warning(node.toString());
         }
 
-        PathNode targetPathNode = new PathNode(new Location(villagerLocation.getWorld(), 100, 54, 100));
-        targetPathNode.calculateChildren();
-
-        logger.warning("Target: " + targetPathNode.toString());
-        logger.warning("Children nodes:");
-        for (PathNode node: targetPathNode.getChildren()) {
-            logger.warning(node.toString());
-        }
-
+//        PathNode targetPathNode = new PathNode(new Location(villagerLocation.getWorld(), 100, 54, 100));
+//        targetPathNode.calculateChildren();
+//
+//        logger.warning("Target: " + targetPathNode.toString());
+//        logger.warning("Children nodes:");
+//        for (PathNode node: targetPathNode.getChildren()) {
+//            logger.warning(node.toString());
+//        }
+//
+//        PathMapper pathMapper = new PathMapper(currentPathNode, targetPathNode);
+//        PathNode weightedNode = null;
+//        try {
+//            weightedNode = pathMapper.weightChildNodes();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        logger.warning("Weighted: " + weightedNode.toString());
+//        logger.warning("Children nodes:");
+//        for (PathNode node: weightedNode.getChildren()) {
+//            logger.warning(node.toString());
+//        }
 
         this.villager.brain.setTickRunning(false);
     }
