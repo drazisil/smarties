@@ -1,6 +1,5 @@
 package com.drazisil.smarties.ai.pathfinding;
 
-import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import java.util.ArrayList;
@@ -41,48 +40,6 @@ public class PathMapper {
         }
 
         return weightedNode;
-    }
-
-    public static PathNode shiftNode(NodeDirection direction, PathNode node) {
-        int weight = node.getWeight();
-        World world = node.getWorld();
-        int x = node.getX();
-        int y = node.getY();
-        int z = node.getZ();
-
-        if (direction == NodeDirection.NORTHEAST)
-            return new PathNode(weight, world, x - 1, y, z - 1);
-
-        if (direction == NodeDirection.NORTH)
-            return new PathNode(weight, world, x, y, z - 1);
-
-        if (direction == NodeDirection.NORTHWEST)
-            return new PathNode(weight, world, x + 1, y, z - 1);
-
-        if (direction == NodeDirection.EAST)
-            return new PathNode(weight, world, x - 1, y, z);
-
-        if (direction == NodeDirection.WEST)
-            return new PathNode(weight, world, x + 1, y, z);
-
-        if (direction == NodeDirection.SOUTHEAST)
-            return new PathNode(weight, world, x - 1, y, z + 1);
-
-        if (direction == NodeDirection.SOUTH)
-            return new PathNode(weight, world, x, y, z + 1);
-
-        if (direction == NodeDirection.SOUTHWEST)
-            return new PathNode(weight, world, x + 1, y, z + 1);
-
-        if (direction == NodeDirection.UP)
-            return new PathNode(weight, world, x, y + 1, z);
-
-        if (direction == NodeDirection.DOWN)
-            return new PathNode(weight, world, x, y - 1, z);
-
-        // We never get here, right?
-        return node;
-
     }
 
     public static Block getBlockAtPathNode(PathNode node) {

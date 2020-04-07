@@ -59,6 +59,58 @@ public class PathNode {
     }
 
     /**
+     * Adjust the XYZ by direction. Returns a new PathNode.
+     *
+     * Negitive Z is north and negitive X is west
+     *
+     * @param direction NodeDirection}
+     * @param node PathNode
+     * @return PathNode
+     */
+    public PathNode adjustByDirection(NodeDirection direction, PathNode node) {
+        int weight = node.getWeight();
+        World world = node.getWorld();
+        int x = node.getX();
+        int y = node.getY();
+        int z = node.getZ();
+
+        if (direction == NodeDirection.NORTHWEST)
+            return new PathNode(weight, world, x - 1, y, z - 1);
+
+        if (direction == NodeDirection.NORTH)
+            return new PathNode(weight, world, x, y, z - 1);
+
+        if (direction == NodeDirection.NORTHEAST)
+            return new PathNode(weight, world, x + 1, y, z - 1);
+
+        if (direction == NodeDirection.WEST)
+            return new PathNode(weight, world, x - 1, y, z);
+
+        if (direction == NodeDirection.EAST)
+            return new PathNode(weight, world, x + 1, y, z);
+
+        if (direction == NodeDirection.SOUTHWEST)
+            return new PathNode(weight, world, x - 1, y, z + 1);
+
+        if (direction == NodeDirection.SOUTH)
+            return new PathNode(weight, world, x, y, z + 1);
+
+        if (direction == NodeDirection.SOUTHEAST)
+            return new PathNode(weight, world, x + 1, y, z + 1);
+
+        if (direction == NodeDirection.UP)
+            return new PathNode(weight, world, x, y + 1, z);
+
+        if (direction == NodeDirection.DOWN)
+            return new PathNode(weight, world, x, y - 1, z);
+
+        // We never get here, right?
+        return node;
+
+    }
+
+
+    /**
      * Populate the list of movable PathNodes from this node.
      */
     public void populateChildNodes() {
@@ -66,28 +118,28 @@ public class PathNode {
         PathNode node;
 
         try {
-            node = shiftNode(NodeDirection.NORTHEAST, this);
+            node = adjustByDirection(NodeDirection.NORTHEAST, this);
             if (isPossibleNode(node)) this.childNodes.add(node);
 
-            node = shiftNode(NodeDirection.NORTH, this);
+            node = adjustByDirection(NodeDirection.NORTH, this);
             if (isPossibleNode(node)) this.childNodes.add(node);
 
-            node = shiftNode(NodeDirection.NORTHWEST, this);
+            node = adjustByDirection(NodeDirection.NORTHWEST, this);
             if (isPossibleNode(node)) this.childNodes.add(node);
 
-            node = shiftNode(NodeDirection.EAST, this);
+            node = adjustByDirection(NodeDirection.EAST, this);
             if (isPossibleNode(node)) this.childNodes.add(node);
 
-            node = shiftNode(NodeDirection.WEST, this);
+            node = adjustByDirection(NodeDirection.WEST, this);
             if (isPossibleNode(node)) this.childNodes.add(node);
 
-            node = shiftNode(NodeDirection.SOUTHEAST, this);
+            node = adjustByDirection(NodeDirection.SOUTHEAST, this);
             if (isPossibleNode(node)) this.childNodes.add(node);
 
-            node =shiftNode(NodeDirection.SOUTH, this);
+            node = adjustByDirection(NodeDirection.SOUTH, this);
             if (isPossibleNode(node)) this.childNodes.add(node);
 
-            node = shiftNode(NodeDirection.SOUTHWEST, this);
+            node = adjustByDirection(NodeDirection.SOUTHWEST, this);
             if (isPossibleNode(node)) this.childNodes.add(node);
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,7 +179,7 @@ public class PathNode {
 
         PathNode possibleNode;
 
-        possibleNode = shiftNode(NodeDirection.UP, node);
+        possibleNode = adjustByDirection(NodeDirection.UP, node);
         if (isValidMoveBlock(possibleNode)) {
             return Optional.of(possibleNode);
         }
@@ -137,7 +189,7 @@ public class PathNode {
             return Optional.of(possibleNode);
         }
 
-        possibleNode = shiftNode(NodeDirection.DOWN, node);
+        possibleNode = adjustByDirection(NodeDirection.DOWN, node);
         if (isValidMoveBlock(possibleNode)) {
             return Optional.of(possibleNode);
         }
@@ -152,8 +204,8 @@ public class PathNode {
      */
     public boolean isValidMoveBlock(PathNode node) {
 
-        PathNode nodeUp = shiftNode(NodeDirection.UP, node);
-        PathNode nodeDown = shiftNode(NodeDirection.DOWN, node);
+        PathNode nodeUp = adjustByDirection(NodeDirection.UP, node);
+        PathNode nodeDown = adjustByDirection(NodeDirection.DOWN, node);
 
         return (!isGround(node) && !isGround(nodeUp) && isGround(nodeDown));
     }
