@@ -1,9 +1,9 @@
 package com.drazisil.smarties.ai.task;
 
 import com.drazisil.smarties.SmartVillager;
-import com.drazisil.smarties.ai.pathfinding.PathMapper;
 import com.drazisil.smarties.ai.pathfinding.PathBlockNode;
-import org.bukkit.Chunk;
+import com.drazisil.smarties.ai.pathfinding.PathChunkNode;
+import com.drazisil.smarties.ai.pathfinding.PathMapper;
 import org.bukkit.Location;
 
 import static com.drazisil.smarties.Smarties.logger;
@@ -21,19 +21,25 @@ public class WalkTask extends Task {
         PathBlockNode currentPathBlockNode = new PathBlockNode(villagerLocation);
         currentPathBlockNode.populateChildNodes();
 
-        Chunk currentChunk = currentPathBlockNode.getChunk().asChunk();
+        PathChunkNode currentChunk = currentPathBlockNode.getChunk();
+        currentChunk.populateChildNodes();
 
 
         logger.warning("Current: " + currentPathBlockNode.toString());
-        logger.warning("Current Chunk: " + currentChunk.toString());
         logger.warning("Children nodes:");
         for (PathBlockNode node: currentPathBlockNode.getChildNodes()) {
             logger.warning(node.toString());
         }
 
+        logger.warning("Current Chunk: " + currentChunk.toString());
+        logger.warning("Children nodes:");
+        for (PathChunkNode node: currentChunk.getChildNodes()) {
+            logger.warning(node.toString());
+        }
+
         PathBlockNode targetPathBlockNode = new PathBlockNode(new Location(villagerLocation.getWorld(), 100, 54, 100));
 //        targetPathNode.populateChildNodes();
-        Chunk targetChunk = targetPathBlockNode.getChunk().asChunk();
+        PathChunkNode targetChunk = targetPathBlockNode.getChunk();
 
         logger.warning("Target: " + targetPathBlockNode.toString());
         logger.warning("Target Chunk: " + targetChunk.toString());

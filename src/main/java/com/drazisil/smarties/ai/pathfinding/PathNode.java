@@ -5,10 +5,17 @@ import org.bukkit.World;
 
 public class PathNode {
 
-    protected final World world;
+    protected World world;
     protected int weight;
     protected int x;
     protected int z;
+
+    /**
+     * Create an empty node with a weight of 1
+     */
+    public PathNode() {
+        this.weight = 1;
+    }
 
     /**
      *
@@ -55,5 +62,36 @@ public class PathNode {
      */
     public int getZ() {
         return z;
+    }
+
+    /**
+     * Increment node weight
+     */
+    public void addWeight() {
+        addWeight(1);
+    }
+
+    /**
+     * Add to node weight
+     * @param weightToAdd add this weith to existing node weight
+     */
+    public void addWeight(int weightToAdd) {
+        this.weight = this.weight + weightToAdd;
+    }
+
+    /**
+     * Get current node weight
+     * @return the node's weight
+     */
+    public int getWeight() {
+        return weight;
+    }
+
+    /**
+     * Get the world the node is in
+     * @return {@link org.bukkit.World}
+     */
+    public World getWorld() {
+        return world;
     }
 }

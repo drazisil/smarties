@@ -230,36 +230,7 @@ public class PathBlockNode extends PathNode {
         this.childNodes = childNodes;
     }
 
-    /**
-     * Increment node weight
-     */
-    public void addWeight() {
-        addWeight(1);
-    }
 
-    /**
-     * Add to node weight
-     * @param weightToAdd add this weith to existing node weight
-     */
-    public void addWeight(int weightToAdd) {
-        this.weight = this.weight + weightToAdd;
-    }
-
-    /**
-     * Get current node weight
-     * @return the node's weight
-     */
-    public int getWeight() {
-        return weight;
-    }
-
-    /**
-     * Get the world the node is in
-     * @return {@link org.bukkit.World}
-     */
-    public World getWorld() {
-        return world;
-    }
 
     /**
      * Copy the node
