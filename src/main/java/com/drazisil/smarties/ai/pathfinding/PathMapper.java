@@ -27,16 +27,11 @@ public class PathMapper {
 
         ArrayList<PathNode> children = weightedNode.getChildNodes();
         int childrenCount = children.size();
-        for (int i = 0; i < childrenCount; i = i + 1) {
-            PathNode node = children.get(i);
-
+        for (PathNode node : children) {
             if (node.getX() == targetNode.getX()) node.addWeight();
             if (node.getY() == targetNode.getY()) node.addWeight();
             if (node.getZ() == targetNode.getZ()) node.addWeight();
 
-        }
-
-        for (PathNode node: weightedNode.getChildNodes()) {
         }
 
         return weightedNode;
@@ -51,7 +46,13 @@ public class PathMapper {
 //    public PathNodeSet weightByDistance(PathNode targetNode, PathNode node1, PathNode node2) {
 //    }
 //
-//    public int getDistance(int one, int two) {
-//    }
+    public static int getDistance(int one, int two) {
+        int result;
+        if (one < 0 && two >= 0) result = (Math.abs(one) + two);
+        else if (one < 0) result = (Math.abs(one - two));
+        else if (two < 0) result = (one + Math.abs(two));
+        else result = (Math.abs(one - two));
+        return result;
+    }
 
 }

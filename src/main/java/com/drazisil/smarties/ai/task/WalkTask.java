@@ -1,6 +1,7 @@
 package com.drazisil.smarties.ai.task;
 
 import com.drazisil.smarties.SmartVillager;
+import com.drazisil.smarties.ai.pathfinding.PathMapper;
 import com.drazisil.smarties.ai.pathfinding.PathNode;
 import org.bukkit.Location;
 
@@ -25,10 +26,16 @@ public class WalkTask extends Task {
             logger.warning(node.toString());
         }
 
-//        PathNode targetPathNode = new PathNode(new Location(villagerLocation.getWorld(), 100, 54, 100));
-//        targetPathNode.calculateChildren();
-//
-//        logger.warning("Target: " + targetPathNode.toString());
+        PathNode targetPathNode = new PathNode(new Location(villagerLocation.getWorld(), 100, 54, 100));
+//        targetPathNode.populateChildNodes();
+
+        logger.warning("Target: " + targetPathNode.toString());
+
+        logger.warning(String.format("Distance between the two points: X= %d, Y= %d, Z= %d",
+                PathMapper.getDistance(currentPathNode.getX(), targetPathNode.getX()),
+                PathMapper.getDistance(currentPathNode.getY(), targetPathNode.getY()),
+                PathMapper.getDistance(currentPathNode.getZ(), targetPathNode.getZ())));
+
 //        logger.warning("Children nodes:");
 //        for (PathNode node: targetPathNode.getChildren()) {
 //            logger.warning(node.toString());
