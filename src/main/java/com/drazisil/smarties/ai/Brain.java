@@ -1,7 +1,9 @@
 package com.drazisil.smarties.ai;
 
+import com.drazisil.smarties.ai.memory.LocationMemory;
 import com.drazisil.smarties.ai.memory.Memory;
 import com.drazisil.smarties.ai.memory.MemoryManager;
+import com.drazisil.smarties.ai.memory.StringMemory;
 import com.drazisil.smarties.ai.task.Task;
 import org.bukkit.Location;
 import org.bukkit.entity.Villager;
@@ -20,9 +22,9 @@ public class Brain {
     public boolean tickRunning = false;
 
     public Brain(Villager rawVillager) {
-        addMemory(new Memory("PROFESSION", rawVillager.getProfession().toString()));
-        addMemory(new Memory("LOCATION", rawVillager.getLocation().toString()));
-        addMemory(new Memory("WALK_TARGET", new Location(rawVillager.getWorld(), -16, 5, -196).toString()));
+        addMemory(new StringMemory("PROFESSION", rawVillager.getProfession().toString()));
+        addMemory(new LocationMemory("WALK_TARGET", new Location(rawVillager.getWorld(), 128, 70, -364)));
+        addMemory(new LocationMemory("LOCATION", rawVillager.getLocation()));
         this.isDead = rawVillager.isDead();
         this.id = rawVillager.getUniqueId();
 
@@ -55,6 +57,7 @@ public class Brain {
     }
 
     public void addMemory(Memory memory) {this.memories.add(memory);}
+
 
 //    public Memory getMemory(String key) {
 //        return this.memories.getMemory(key);

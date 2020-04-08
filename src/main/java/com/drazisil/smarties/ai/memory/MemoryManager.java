@@ -20,7 +20,7 @@ public class MemoryManager {
         return null;
     }
 
-    public String get(String key) {
+    public Object get(String key) {
         Memory memory = getMemory(key);
         if (memory == null) {
             return "";

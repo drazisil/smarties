@@ -85,5 +85,9 @@ public class WalkTask extends Task {
         this.villager.brain.setTickRunning(false);
     }
 
+    private void tryWalk() {
+
+    }
+
 
 }

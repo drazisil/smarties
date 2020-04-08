@@ -1,25 +1,15 @@
 package com.drazisil.smarties.ai.memory;
 
-public class Memory {
+public abstract class Memory {
 
-
-    private final String key;
-    private final String value;
-
-    public Memory(String key, String value) {
-        this.key = key;
-        this.value = value;
-    }
+    protected String key;
+    protected Object value;
 
     public String getKey() {
         return key;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
-    }
-
-    public String toString() {
-        return (key + ": " + value);
     }
 }
