@@ -37,7 +37,7 @@ public class PathMapper {
     }
 
     public static Block getBlockAtPathNode(PathBlockNode node) {
-        return node.getWorld().getBlockAt(node.getX(), node.getY(), node.getZ());
+        return node.getWorld().getBlockAt((int)node.getX(), node.getY(), (int)node.getZ());
     }
 
 
@@ -45,12 +45,12 @@ public class PathMapper {
 //    public PathNodeSet weightByDistance(PathNode targetNode, PathNode node1, PathNode node2) {
 //    }
 //
-    public static int getDistance(int one, int two) {
+    public static int getDistance(double one, double two) {
         int result;
-        if (one < 0 && two >= 0) result = (Math.abs(one) + two);
-        else if (one < 0) result = (Math.abs(one - two));
-        else if (two < 0) result = (one + Math.abs(two));
-        else result = (Math.abs(one - two));
+        if (one < 0 && two >= 0) result = (Math.abs((int)one) + (int)two);
+        else if (one < 0) result = (Math.abs((int)one - (int)two));
+        else if (two < 0) result = ((int)one + Math.abs((int)two));
+        else result = (Math.abs((int)one - (int)two));
         return result;
     }
 
@@ -67,5 +67,13 @@ public class PathMapper {
         }
         return sourceNumber;
     }
+
+    public static PathBlockNode centerOnBlock(PathBlockNode node) {
+        PathBlockNode centeredNode = node.clone();
+        centeredNode.setX(node.getX() + 0.5);
+        centeredNode.setZ(node.getZ() + 0.5);
+        return centeredNode;
+    }
+
 
 }

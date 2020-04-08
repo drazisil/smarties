@@ -58,6 +58,8 @@ public class Brain {
 
     public void addMemory(Memory memory) {this.memories.add(memory);}
 
+    public Memory getMemory(String key) { return this.memories.getMemory(key);}
+
 
 //    public Memory getMemory(String key) {
 //        return this.memories.getMemory(key);

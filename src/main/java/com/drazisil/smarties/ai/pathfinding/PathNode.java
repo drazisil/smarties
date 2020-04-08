@@ -7,8 +7,8 @@ public class PathNode {
 
     protected World world;
     protected int weight;
-    protected int x;
-    protected int z;
+    protected double x;
+    protected double z;
 
     /**
      * Create an empty node with a weight of 1
@@ -52,7 +52,7 @@ public class PathNode {
      * Get the node's X postion
      * @return int
      */
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -60,7 +60,7 @@ public class PathNode {
      * Get the node's Z position
      * @return int
      */
-    public int getZ() {
+    public double getZ() {
         return z;
     }
 
@@ -93,5 +93,26 @@ public class PathNode {
      */
     public World getWorld() {
         return world;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
+    public static boolean isThere(Location currentNode, Location targetNode) {
+        int cX = currentNode.getBlockX();
+        int cY = currentNode.getBlockY();
+        int cZ = currentNode.getBlockZ();
+
+        int tX = targetNode.getBlockX();
+        int tY = targetNode.getBlockY();
+        int tZ = targetNode.getBlockZ();
+
+        return (cX == tX && cY == tY && cZ == tZ);
+
     }
 }

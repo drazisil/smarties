@@ -4,6 +4,7 @@ import com.drazisil.smarties.SmartVillager;
 import com.drazisil.smarties.ai.pathfinding.PathBlockNode;
 import com.drazisil.smarties.ai.pathfinding.PathChunkNode;
 import com.drazisil.smarties.ai.pathfinding.PathMapper;
+import com.drazisil.smarties.ai.pathfinding.PathNode;
 import org.bukkit.Location;
 
 import static com.drazisil.smarties.Smarties.logger;
@@ -24,7 +25,6 @@ public class WalkTask extends Task {
         PathChunkNode currentChunk = currentPathBlockNode.getChunk();
         currentChunk.populateChildNodes();
 
-
         logger.warning("Current: " + currentPathBlockNode.toString());
         logger.warning("Children nodes:");
         for (PathBlockNode node: currentPathBlockNode.getChildNodes()) {
@@ -37,7 +37,7 @@ public class WalkTask extends Task {
             logger.warning(node.toString());
         }
 
-        PathBlockNode targetPathBlockNode = new PathBlockNode(new Location(villagerLocation.getWorld(), 128, 70, -364));
+        PathBlockNode targetPathBlockNode = new PathBlockNode((Location) villager.brain.getMemory("WALK_TARGET").getValue());
 //        targetPathNode.populateChildNodes();
         PathChunkNode targetChunk = targetPathBlockNode.getChunk();
 
@@ -57,11 +57,21 @@ public class WalkTask extends Task {
 
         PathBlockNode suggestedNextBlock = new PathBlockNode(1,
                 currentPathBlockNode.getWorld(),
-                PathMapper.getNextClosestNumber(currentPathBlockNode.getX(), targetPathBlockNode.getX()),
-                PathMapper.getNextClosestNumber(currentPathBlockNode.getY(), targetPathBlockNode.getY()),
-                PathMapper.getNextClosestNumber(currentPathBlockNode.getZ(), targetPathBlockNode.getZ()));
+                PathMapper.getNextClosestNumber((int)currentPathBlockNode.getX(), (int)targetPathBlockNode.getX()),
+                PathMapper.getNextClosestNumber((int)currentPathBlockNode.getY(), (int)targetPathBlockNode.getY()),
+                PathMapper.getNextClosestNumber((int)currentPathBlockNode.getZ(), (int)targetPathBlockNode.getZ()));
 
         logger.warning(String.format("Suggested next block: %s", suggestedNextBlock.toString()));
+
+        logger.warning("Trying to move...");
+
+        villager.getVillager().teleport(PathMapper.centerOnBlock(suggestedNextBlock).toLocation());
+
+        if (PathNode.isThere(this.villager.getVillager().getLocation(), targetPathBlockNode.toLocation())) {
+            logger.warning(String.format("Current: %s", this.villager.getVillager().getLocation()));
+            logger.warning(String.format("Target: %s",  targetPathBlockNode.toLocation()));
+            this.villager.brain.setTickRunning(false);
+        }
 
 //        logger.warning("Children nodes:");
 //        for (PathNode node: targetPathNode.getChildren()) {
@@ -82,12 +92,12 @@ public class WalkTask extends Task {
 //            logger.warning(node.toString());
 //        }
 
-        this.villager.brain.setTickRunning(false);
     }
 
     private void tryWalk() {
 
     }
+
 
 
 }

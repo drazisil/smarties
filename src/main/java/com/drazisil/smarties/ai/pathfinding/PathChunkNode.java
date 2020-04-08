@@ -51,8 +51,8 @@ public class PathChunkNode extends PathNode {
     public PathChunkNode adjustByDirection(NodeDirection direction, PathChunkNode node) {
         int weight = node.getWeight();
         World world = node.getWorld();
-        int x = node.getX();
-        int z = node.getZ();
+        int x = (int)node.getX();
+        int z = (int)node.getZ();
 
         if (direction == NodeDirection.NORTHWEST)
             return new PathChunkNode(world.getChunkAt(x - 1, z - 1));
@@ -128,10 +128,10 @@ public class PathChunkNode extends PathNode {
      * @return String
      */
     public String toString() {
-        return String.format("weight: %d, world: %s, x: %d, z: %d", weight, world, x, z);
+        return String.format("weight: %d, world: %s, x: %f, z: %f", weight, world, x, z);
     }
 
     public Chunk asChunk() {
-        return world.getChunkAt(x, z);
+        return world.getChunkAt((int)x, (int)z);
     }
 }

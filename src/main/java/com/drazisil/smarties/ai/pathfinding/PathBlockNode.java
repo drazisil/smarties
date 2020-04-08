@@ -15,7 +15,7 @@ import static com.drazisil.smarties.ai.pathfinding.PathMapper.getBlockAtPathNode
 public class PathBlockNode extends PathNode {
 
     private final PathChunkNode chunkNode;
-    private final int y;
+    private int y;
     private ArrayList<PathBlockNode> childNodes = new ArrayList<>();
 
     /**
@@ -47,9 +47,9 @@ public class PathBlockNode extends PathNode {
      * @param y y position on node
      * @param z z position of node
      */
-    public PathBlockNode(int weight, World world, int x, int y, int z) {
+    public PathBlockNode(int weight, World world, double x, int y, double z) {
         super(weight, new Location(world, x, y, z));
-        this.chunkNode = new PathChunkNode(weight, world, x, y, z);
+        this.chunkNode = new PathChunkNode(weight, world, (int)Math.floor(x), y, (int)Math.floor(z));
         this.x = x;
         this.y = y;
         this.z = z;
@@ -67,9 +67,9 @@ public class PathBlockNode extends PathNode {
     public PathBlockNode adjustByDirection(NodeDirection direction, PathBlockNode node) {
         int weight = node.getWeight();
         World world = node.getWorld();
-        int x = node.getX();
+        double x = node.getX();
         int y = node.getY();
-        int z = node.getZ();
+        double z = node.getZ();
 
         if (direction == NodeDirection.NORTHWEST)
             return new PathBlockNode(weight, world, x - 1, y, z - 1);
@@ -252,9 +252,6 @@ public class PathBlockNode extends PathNode {
         return y;
     }
 
-
-
-
     public PathChunkNode getChunk() { return this.chunkNode; }
 
     /**
@@ -270,7 +267,7 @@ public class PathBlockNode extends PathNode {
         if (getBlockAtPathNode(node).isPassable()) return false;
 
         for (int i = node.getY() + 1; i <= maxHeight; i++) {
-            if (!world.getBlockAt(node.getX(), node.getY() + i, node.getZ()).isPassable()) return  false;
+            if (!world.getBlockAt((int)node.getX(), node.getY() + i, (int)node.getZ()).isPassable()) return  false;
         }
 
         return true;
@@ -283,7 +280,7 @@ public class PathBlockNode extends PathNode {
      * @return String
      */
     public String toString() {
-        return String.format("weight: %d, world: %s, x: %d, y: %d, z: %d", weight, world, x, y, z);
+        return String.format("weight: %d, world: %s, x: %f, y: %d, z: %f", weight, world, x, y, z);
     }
 
     /**
@@ -292,5 +289,9 @@ public class PathBlockNode extends PathNode {
      */
     public Location toLocation() {
         return new Location(world, x, y, z);
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
