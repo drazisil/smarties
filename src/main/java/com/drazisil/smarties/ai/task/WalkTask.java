@@ -37,7 +37,7 @@ public class WalkTask extends Task {
             logger.warning(node.toString());
         }
 
-        PathBlockNode targetPathBlockNode = new PathBlockNode(new Location(villagerLocation.getWorld(), 100, 54, 100));
+        PathBlockNode targetPathBlockNode = new PathBlockNode(new Location(villagerLocation.getWorld(), 128, 70, -364));
 //        targetPathNode.populateChildNodes();
         PathChunkNode targetChunk = targetPathBlockNode.getChunk();
 
@@ -55,6 +55,13 @@ public class WalkTask extends Task {
                 PathMapper.getDistance(currentPathBlockNode.getChunk().getZ(),
                         targetPathBlockNode.getChunk().getZ())));
 
+        PathBlockNode suggestedNextBlock = new PathBlockNode(1,
+                currentPathBlockNode.getWorld(),
+                PathMapper.getNextClosestNumber(currentPathBlockNode.getX(), targetPathBlockNode.getX()),
+                PathMapper.getNextClosestNumber(currentPathBlockNode.getY(), targetPathBlockNode.getY()),
+                PathMapper.getNextClosestNumber(currentPathBlockNode.getZ(), targetPathBlockNode.getZ()));
+
+        logger.warning(String.format("Suggested next block: %s", suggestedNextBlock.toString()));
 
 //        logger.warning("Children nodes:");
 //        for (PathNode node: targetPathNode.getChildren()) {

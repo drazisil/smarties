@@ -54,4 +54,18 @@ public class PathMapper {
         return result;
     }
 
+    public static int getNextClosestNumber(int sourceNumber, int targetNumber) {
+        if (sourceNumber < 0 && targetNumber >= 0) return sourceNumber + 1;
+        else if (sourceNumber >=0 && targetNumber < 0) return sourceNumber - 1;
+        else if (sourceNumber < 0 && targetNumber < 0) {
+            if (sourceNumber > targetNumber) return sourceNumber - 1;
+            else if (targetNumber > sourceNumber) return sourceNumber + 1;
+        }
+        else if (sourceNumber >= 0 && targetNumber >= 0) {
+            if (sourceNumber > targetNumber) return sourceNumber + 1;
+            else if (targetNumber > sourceNumber) return sourceNumber - 1;
+        }
+        return sourceNumber;
+    }
+
 }
